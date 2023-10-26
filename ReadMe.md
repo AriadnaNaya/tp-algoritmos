@@ -4,7 +4,13 @@
 
 ### Inicializando el venv
 
-Primero hay que habilitar la ejecucion de scripts en Windows. EN la terminal, parado en la carpeta backend correr:
+Creamos el ambiente virtual, parado en la carpeta backend correr:
+
+```
+python -m venv venv
+```
+
+Habilitamos la ejecucion de scripts en Windows. En la terminal:
 ```
 Set-ExecutionPolicy Unrestricted -Scope Process
 ```
@@ -34,4 +40,22 @@ Una vez inicializado el ambiente virtual debemos setear algunas variables de amb
 ```
 $env:FLASK_APP="__init__.py"
 ```
-sdhgkghkdfjshjgf
+
+Para inicializar la app ejecutamos el comando:
+
+```
+flask run
+```
+
+Ya se puede acceder a la app mediante la url:
+```
+ http://127.0.0.1:5000
+```
+
+Por ahora tiene las opciones:
+
+* /signup
+* /login
+* /logout
+* /profile
+
