@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div>
+    <h1 class="bills--title">Registro de Gastos</h1>
+    <form class="bills-form" method="post" action="{{ url_for('gastos') }}">
+        <div class="bills-form--field">
+            <label class="bills-form--field__label" for="descripcion">Descripción</label>
+            <input class="bills-form--field__input" type="text" id="descripcion" name="descripcion" required
+                placeholder="Boleto de subte...">
+        </div>
+        <br>
+        <div class="bills-form--field">
+            <label class="bills-form--field__label" for="tipo">Tipo de Gasto</label>
+            <input class="bills-form--field__input" type="text" id="tipo" name="tipo" required
+                placeholder="Transporte...">
+        </div>
+        <br>
+        <div class="bills-form--field">
+            <label class="bills-form--field__label" for="monto">Monto</label>
+            <input class="bills-form--field__input" type="number" id="monto" name="monto" required placeholder="$500">
+        </div>
+        <br>
+        <button class="bills-form--submit-button" type="submit">Agregar Gasto</button>
+    </form>
+
+    <h2 class="bills--title">Lista de Gastos</h2>
+    <ul class="bills-container">
+        {% for gasto in gastos %}
+        <li class="bills-container--item">
+            <div>
+                <div>
+                    Descripción: <b>{{ gasto.descripcion }}</b>
+                    </br>
+                    Tipo: <b>{{ gasto.tipo }}</b>
+                </div>
+                Monto: <b>${{ gasto.monto }}</b>
+            </div>
+            </br>
+            <div>
+                <a href="{{ url_for('editar_gasto', gasto_id=gasto.id) }}"
+                    class="bills-container--item__edit">Editar</a>
+                <form method="post" action="{{ url_for('eliminar_gasto', gasto_id=gasto.id) }}" style="display:inline;">
+                    <button type="submit" class="bills-container--item__delete">Eliminar</button>
+                </form>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

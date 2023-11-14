@@ -1,0 +1,12 @@
+@media screen and (min-width: 320px) and (max-width: 1024px) {
+    .navbar-menu,
+    .navbar-end {
+        display: flex !important;
+    }
+
+    .hero-head {
+        position: fixed;
+        width: 100vw;
+        z-index: 200;
+    }
+}
