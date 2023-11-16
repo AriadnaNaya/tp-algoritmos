@@ -2,50 +2,44 @@
 
 {% block content %}
 <div>
-    <h1 class="bills--title">Registro de Gastos</h1>
-    <form class="bills-form" method="post" action="{{ url_for('gastos') }}">
-        <div class="bills-form--field">
-            <label class="bills-form--field__label" for="descripcion">Descripción</label>
-            <input class="bills-form--field__input" type="text" id="descripcion" name="descripcion" required
-                placeholder="Boleto de subte...">
-        </div>
-        <br>
-        <div class="bills-form--field">
-            <label class="bills-form--field__label" for="tipo">Tipo de Gasto</label>
-            <input class="bills-form--field__input" type="text" id="tipo" name="tipo" required
-                placeholder="Transporte...">
-        </div>
-        <br>
-        <div class="bills-form--field">
-            <label class="bills-form--field__label" for="monto">Monto</label>
-            <input class="bills-form--field__input" type="number" id="monto" name="monto" required placeholder="$500">
-        </div>
-        <br>
-        <button class="bills-form--submit-button" type="submit">Agregar Gasto</button>
+    <h2>Lista de Gastos</h2>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Descripcion</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Monto</th>
+            <th scope="col">Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for gasto in gastos %}
+        <tr>
+            <th scope="row">{{ gasto.id }}</th>
+            <td>{{ gasto.descripcion }}</td>
+            <td>{{ gasto.tipo }}</td>
+            <td>{{ gasto.monto }}</td>
+            <td>
+                <div class="col justify-content-between">
+                    <a href="{{ url_for('gastos.editar_gasto', gasto_id=gasto.id) }}"
+                       class="bills-container--item__edit">Editar</a>
+                    <form method="post" action="{{ url_for('gastos.eliminar_gasto', gasto_id=gasto.id) }}" style="display:inline;">
+                        <button type="submit" class="bills-container--item__delete">Eliminar</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <form method="get" action="{{ url_for('gastos.create_gastos') }}" style="display:inline;">
+        <button type="submit" class="btn btn-primary">Add Gasto</button>
     </form>
 
-    <h2 class="bills--title">Lista de Gastos</h2>
-    <ul class="bills-container">
-        {% for gasto in gastos %}
-        <li class="bills-container--item">
-            <div>
-                <div>
-                    Descripción: <b>{{ gasto.descripcion }}</b>
-                    </br>
-                    Tipo: <b>{{ gasto.tipo }}</b>
-                </div>
-                Monto: <b>${{ gasto.monto }}</b>
-            </div>
-            </br>
-            <div>
-                <a href="{{ url_for('editar_gasto', gasto_id=gasto.id) }}"
-                    class="bills-container--item__edit">Editar</a>
-                <form method="post" action="{{ url_for('eliminar_gasto', gasto_id=gasto.id) }}" style="display:inline;">
-                    <button type="submit" class="bills-container--item__delete">Eliminar</button>
-                </form>
-            </div>
-        </li>
-        {% endfor %}
-    </ul>
+
+
 </div>
 {% endblock %}

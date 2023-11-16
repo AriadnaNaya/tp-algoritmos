@@ -2,7 +2,7 @@
 
 {% block content %}
 <h1 class="title">Editar Gasto</h1>
-<form method="post" action="{{ url_for('editar_gasto', gasto_id=gasto.id) }}">
+<form method="post" action="{{ url_for('gastos.editar_gasto', gasto_id=gasto.id) }}">
     <div class="field">
         <label for="descripcion">Nueva Descripción:</label>
         <input class="input is-large" type="text" id="descripcion" name="descripcion" value="{{ gasto.descripcion }}"
