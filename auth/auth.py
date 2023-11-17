@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_user, login_required, logout_user
 from werkzeug.security import generate_password_hash, check_password_hash
-from backend.db.models.User import User
-from backend.db import db
+from ..db.models.User import User
+from ..db import db
 
 auth = Blueprint('auth', __name__)
 
@@ -27,7 +27,7 @@ def login_post():
 
     # if the above check passes, then we know the user has the right credentials
     login_user(user, remember=remember)
-    return redirect(url_for('main.profile'))
+    return redirect(url_for('profile.get_profile'))
 
 @auth.route('/signup')
 def signup():

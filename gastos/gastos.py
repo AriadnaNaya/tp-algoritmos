@@ -1,7 +1,10 @@
 from flask_login import LoginManager, login_required, current_user
 from flask import Flask, render_template, request, redirect, url_for, abort, Blueprint
-from backend.db import db
-from backend.db.models.Gasto import Gasto
+from sqlalchemy import func
+
+from ..db import db
+from ..db.models.Gasto import Gasto
+
 
 gastos = Blueprint('gastos', __name__,
                         template_folder='templates')
@@ -15,13 +18,26 @@ def create_gastos():
 @gastos.route('/list', methods=['GET'])
 @login_required  # Asegura que el usuario esté autenticado para acceder a esta ruta
 def listar_gastos():
+    total = 0
     gastos = Gasto.query.filter_by(user=current_user).all()
-    return render_template('gastos.html', gastos=gastos)
+
+    gastos_agrupados = db.session.query(
+        Gasto.tipo,
+        func.sum(Gasto.monto).label('total')
+    ).filter(Gasto.user_id==current_user.id).group_by(Gasto.tipo).all()
+
+    for gasto in gastos:
+        total+= gasto.monto
+
+    return render_template('gastos.html', gastos=gastos, total=total, agrupados=gastos_agrupados, user=current_user)
 
 
 @gastos.route('/', methods=['POST'])
 @login_required  # Asegura que el usuario esté autenticado para acceder a esta ruta
 def create_gastos_post():
+
+    total = 0
+
     if request.method == 'POST':
         descripcion = request.form['descripcion']
         tipo = request.form['tipo']
@@ -32,7 +48,15 @@ def create_gastos_post():
         db.session.commit()
 
     gastos = Gasto.query.filter_by(user=current_user).all()
-    return render_template('gastos.html', gastos=gastos)
+    gastos_agrupados = db.session.query(
+        Gasto.tipo,
+        func.sum(Gasto.monto).label('total')
+    ).filter(Gasto.user_id==current_user.id).group_by(Gasto.tipo).all()
+
+    for gasto in gastos:
+        total+= gasto.monto
+
+    return render_template('gastos.html', gastos=gastos, total=total, agrupados=gastos_agrupados, user=current_user)
 
 @gastos.route('/delete/<int:gasto_id>', methods=['POST'])
 @login_required
@@ -46,7 +70,7 @@ def eliminar_gasto(gasto_id):
     db.session.delete(gasto)
     db.session.commit()
 
-    return redirect(url_for('gastos'))
+    return redirect(url_for('gastos.listar_gastos'))
 
 @gastos.route('/edit/<int:gasto_id>', methods=['GET', 'POST'])
 @login_required
@@ -64,6 +88,6 @@ def editar_gasto(gasto_id):
         gasto.monto = request.form['monto']
 
         db.session.commit()
-        return redirect(url_for('gastos'))
+        return redirect(url_for('gastos.listar_gastos'))
 
     return render_template('editar_gasto.html', gasto=gasto)

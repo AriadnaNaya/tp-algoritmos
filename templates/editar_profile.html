@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">Editar Profile</h1>
+<form method="post" action="{{ url_for('profile.editar_profile', user_id=user.id) }}">
+
+  <div class="mb-3">
+    <label for="email" class="form-label">Nuevo Email</label>
+    <input type="email" class="form-control" id="email" name="email" required value="{{ user.email }}">
+  </div>
+  <div class="mb-3">
+    <label for="name" class="form-label">Nuevo Nombre</label>
+    <input type="text" class="form-control" id="name" name="name" required value="{{ user.name }}">
+  </div>
+  <div class="mb-3">
+    <label for="tel" class="form-label">Nuevo Telefono</label>
+    <input type="text" class="form-control" id="tel" name="tel" required value="{{ user.tel }}">
+  </div>
+  <div class="mb-3">
+    <label for="budget" class="form-label">Nuevo Budget</label>
+    <input type="number" class="form-control" id="budget" name="budget" required value="{{ user.budget }}">
+  </div>
+  <button type="submit">Guardar Cambios</button>
+</form>
+{% endblock %}

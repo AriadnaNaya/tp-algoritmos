@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div>
-    <h2>Lista de Gastos</h2>
+<div style="margin-top:50px">
 
-    <table class="table table-striped">
+    <form method="get" action="{{ url_for('gastos.create_gastos') }}" style="float:right;">
+        <button type="submit" class="btn btn-primary">Agregar gasto</button>
+    </form>
+    </br>
+    <h2 style="margin:25px 0px 25px 0px">Lista de Gastos</h2>
+    <table id="myTable" class="table table-bordered table-striped">
         <thead>
         <tr>
             <th scope="col">#</th>
@@ -17,29 +21,76 @@
         <tbody>
         {% for gasto in gastos %}
         <tr>
-            <th scope="row">{{ gasto.id }}</th>
+            <th scope="row">{{ loop.index}}</th>
             <td>{{ gasto.descripcion }}</td>
             <td>{{ gasto.tipo }}</td>
             <td>{{ gasto.monto }}</td>
             <td>
                 <div class="col justify-content-between">
-                    <a href="{{ url_for('gastos.editar_gasto', gasto_id=gasto.id) }}"
-                       class="bills-container--item__edit">Editar</a>
+                    <button type="submit" class="btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Editar">
+                        <a href="{{ url_for('gastos.editar_gasto', gasto_id=gasto.id) }}" class="bills-container--item__edit">
+                            <i data-feather="edit-3"></i>
+                        </a>
+                    </button>
+
                     <form method="post" action="{{ url_for('gastos.eliminar_gasto', gasto_id=gasto.id) }}" style="display:inline;">
-                        <button type="submit" class="bills-container--item__delete">Eliminar</button>
+                        <button type="submit" class="btn-outline-primary btn-sm" data-toggle="tooltip" data-placement="top" title="Eliminar"><i data-feather="trash"></i></button>
                     </form>
                 </div>
             </td>
         </tr>
         {% endfor %}
+
+
+        </tbody>
+        <tfoot>
+            <th>Total</th>
+            <td> - </td>
+            <td> - </td>
+            <td> {{ total }}</td>
+            <td> - </td>
+
+        </tfoot>
+    </table>
+
+    <h2 style="margin:25px 0px 25px 0px">Totales</h2>
+
+    <table id="myTotals" class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Monto</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        {% for gasto in agrupados %}
+        <tr>
+            <th scope="row">{{ loop.index}}</th>
+            <td>{{ gasto[0] }}</td>
+            <td>{{ gasto[1] }}</td>
+
+        </tr>
+        {% endfor %}
+
+
         </tbody>
     </table>
 
-    <form method="get" action="{{ url_for('gastos.create_gastos') }}" style="display:inline;">
-        <button type="submit" class="btn btn-primary">Add Gasto</button>
-    </form>
+    <h2 style="margin-top:50px">Llegamos?</h2>
 
+    {% if  user.budget %}
+    {% if  user.budget > total %}
+        <p>Estamos OK!!</p>
+    {% endif %}
+    {% if user.budget < total %}
+    <p>Hay que ir sacando un prestamo</p>
+    {% endif %}
+    {% endif %}
 
-
+    {% if not user.budget %}
+        <p>Aun no has ingresado un budget, agregalo desde tu perfil.</p>
+    {% endif %}
 </div>
 {% endblock %}

@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_login import LoginManager, login_required, current_user
-from backend.main import main as main_blueprint
-from backend.auth.auth import auth as auth_blueprint
-from backend.gastos.gastos import gastos as gastos_blueprint
-from backend.db import db
-from backend.db.models.User import User
-from backend.db.models.Gasto import Gasto
+from .main import main as main_blueprint
+from .auth.auth import auth as auth_blueprint
+from .gastos.gastos import gastos as gastos_blueprint
+from .profile.profile import profile as profile_blueprint
+from .db import db
+from .db.models.Gasto import Gasto
+from .db.models.User import User
 
 def create_app():
     app = Flask(__name__)
@@ -26,6 +27,7 @@ def create_app():
 
     app.register_blueprint(auth_blueprint)
     app.register_blueprint(gastos_blueprint, url_prefix='/gastos')
+    app.register_blueprint(profile_blueprint, url_prefix='/profile')
     app.register_blueprint(main_blueprint)
 
     with app.app_context():

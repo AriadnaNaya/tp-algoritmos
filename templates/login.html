@@ -11,26 +11,25 @@
     </div>
     {% endif %}
     {% endwith %}
-    <form method="POST" action="/login">
-      <div class="field">
-        <div class="control">
-          <input class="input is-large" type="email" name="email" placeholder="Your Email" autofocus="">
-        </div>
-      </div>
 
-      <div class="field">
-        <div class="control">
-          <input class="input is-large" type="password" name="password" placeholder="Your Password">
-        </div>
+    <form class="bills-form" method="post" action="/login">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" name="email" required placeholder="Tu mail...">
       </div>
-      <div class="field">
-        <label class="checkbox">
-          <input type="checkbox" name="remember">
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" name="password" required placeholder="Tu contraseña">
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+        <label class="form-check-label" for="flexCheckDefault">
           Remember me
         </label>
       </div>
-      <button class="button is-block is-info is-large is-fullwidth">Login</button>
+      <button class="bills-form--submit-button" type="submit">Login</button>
     </form>
+
   </div>
 </div>
 {% endblock %}
