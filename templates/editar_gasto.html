@@ -1,24 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">Editar Gasto</h1>
+<h1 style="padding-top:25px">Editar Gasto</h1>
 <form method="post" action="{{ url_for('gastos.editar_gasto', gasto_id=gasto.id) }}">
-    <div class="field">
-        <label for="descripcion">Nueva Descripción:</label>
-        <input class="input is-large" type="text" id="descripcion" name="descripcion" value="{{ gasto.descripcion }}"
-            required>
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Nueva Descripción</label>
+        <input type="text" class="form-control" id="descripcion" name="descripcion" required value="{{ gasto.descripcion }}">
     </div>
-    <br>
-    <div class="field">
-        <label for="tipo">Nuevo Tipo de Gasto:</label>
-        <input class="input is-large" type="text" id="tipo" name="tipo" value="{{ gasto.tipo }}" required>
+    <div class="mb-3">
+        <label for="tipo" class="form-label">Nuevo Tipo de Gasto</label>
+        <input type="text" class="form-control" id="tipo" name="tipo" required value="{{ gasto.tipo }}">
     </div>
-    <br>
-    <div class="field">
-        <label for="monto">Nuevo Monto:</label>
-        <input class="input is-large" type="number" id="monto" name="monto" value="{{ gasto.monto }}" required>
+    <div class="mb-3">
+        <label for="monto" class="form-label"> Nuevo Monto</label>
+        <input type="number" class="form-control" id="monto" name="monto" required value="{{ gasto.monto }}">
     </div>
-    <br>
-    <button type="submit">Guardar Cambios</button>
+    <button class="bills-form--submit-button" type="submit">Guardar Cambios</button>
 </form>
 {% endblock %}

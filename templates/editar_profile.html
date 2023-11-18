@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1 class="title">Editar Profile</h1>
+<h1 class="title" style="padding-top:25px">Editar Profile</h1>
 <form method="post" action="{{ url_for('profile.editar_profile', user_id=user.id) }}">
 
   <div class="mb-3">

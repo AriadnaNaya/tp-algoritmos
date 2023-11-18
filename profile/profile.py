@@ -8,7 +8,7 @@ from sqlalchemy import func
 profile = Blueprint('profile', __name__,
                    template_folder='templates')
 
-
+#Gonza
 @profile.route('/', methods=['GET'])
 @login_required  # Asegura que el usuario esté autenticado para acceder a esta ruta
 def get_profile():
@@ -19,7 +19,7 @@ def get_profile():
         func.sum(Gasto.monto).label('total')
     ).filter(Gasto.user_id==current_user.id).group_by(Gasto.tipo).all()
 
-    return render_template('profile.html', user=current_user, gastos=gastos, agrupados=gastos_agrupados)
+    return render_template('profile.html', user=current_user,  agrupados=gastos_agrupados)
 
 @profile.route('/delete/<int:user_id>', methods=['POST'])
 @login_required

@@ -5,7 +5,7 @@ from ..db.models.User import User
 from ..db import db
 
 auth = Blueprint('auth', __name__)
-
+#Noe
 @auth.route('/login')
 def login():
     return render_template('login.html')

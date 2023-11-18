@@ -15,7 +15,7 @@ gastos = Blueprint('gastos', __name__,
 def create_gastos():
     return render_template('agregar_gasto.html')
 
-@gastos.route('/list', methods=['GET'])
+@gastos.route('/list', methods=['GET'])#Lu
 @login_required  # Asegura que el usuario esté autenticado para acceder a esta ruta
 def listar_gastos():
     total = 0
@@ -24,7 +24,7 @@ def listar_gastos():
     gastos_agrupados = db.session.query(
         Gasto.tipo,
         func.sum(Gasto.monto).label('total')
-    ).filter(Gasto.user_id==current_user.id).group_by(Gasto.tipo).all()
+    ).filter(Gasto.user_id==current_user.id).group_by(Gasto.tipo).all()#Martu
 
     for gasto in gastos:
         total+= gasto.monto
@@ -34,7 +34,7 @@ def listar_gastos():
 
 @gastos.route('/', methods=['POST'])
 @login_required  # Asegura que el usuario esté autenticado para acceder a esta ruta
-def create_gastos_post():
+def create_gastos_post():#Ari
 
     total = 0
 
@@ -60,7 +60,7 @@ def create_gastos_post():
 
 @gastos.route('/delete/<int:gasto_id>', methods=['POST'])
 @login_required
-def eliminar_gasto(gasto_id):
+def eliminar_gasto(gasto_id):#Rodri
     gasto = Gasto.query.get_or_404(gasto_id)
 
     # Asegúrate de que el usuario actual sea el propietario del gasto
@@ -74,7 +74,7 @@ def eliminar_gasto(gasto_id):
 
 @gastos.route('/edit/<int:gasto_id>', methods=['GET', 'POST'])
 @login_required
-def editar_gasto(gasto_id):
+def editar_gasto(gasto_id):#Flor
     gasto = Gasto.query.get_or_404(gasto_id)
 
     # Asegúrate de que el usuario actual sea el propietario del gasto
