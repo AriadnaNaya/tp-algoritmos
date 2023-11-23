@@ -83,7 +83,7 @@
     {% if  user.budget %}
     {% if  user.budget > total %}
     <div class="container">
-        <div class="col-md-12 text-center">
+        <div class="col-md-12 text-center padding:25px 0px 25px 0px">
             <h1 class="display-3" style="padding:25px 0px 25px 0px">Estamos OK!!</h1>
             <img src="{{ url_for('static', filename='images/festejo.png') }}" class="rounded mx-auto d-block" alt="Estamos OK!!">
         </div>
@@ -91,7 +91,7 @@
     {% endif %}
     {% if user.budget < total %}
         <div class="container">
-            <div class="col-md-12 text-center">
+            <div class="col-md-12 text-center padding:25px 0px 25px 0px">
                 <h1 class="display-4" style="color:red;padding:25px 0px 25px 0px">Hay que ir sacando un prestamo!!</h1>
                 <img src="{{ url_for('static', filename='images/alerta.png') }}" class="rounded mx-auto d-block" alt="...">
             </div>
