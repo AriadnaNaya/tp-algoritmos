@@ -3,7 +3,7 @@
 {% block content %}
 <h1 style="padding-top:25px">Editar Gasto</h1>
 <form method="post" action="{{ url_for('gastos.editar_gasto', gasto_id=gasto.id) }}">
-    <div class="mb-3">
+    <div class="mb-3 pt-1">
         <label for="descripcion" class="form-label">Nueva Descripción</label>
         <input type="text" class="form-control" id="descripcion" name="descripcion" required value="{{ gasto.descripcion }}">
     </div>

@@ -2,11 +2,11 @@
 
 {% block content %}
 <div class="column is-4 is-offset-4" style="padding-top:25px">
-  <h3 class="title">Login</h3>
+  <h3 class="title pb-2">Login</h3>
   <div class="box">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
-    <div class="notification is-danger">
+    <div class="notification is-danger pb-1">
       {{ messages[0] }}
     </div>
     {% endif %}
@@ -21,7 +21,7 @@
         <label for="password" class="form-label">Password</label>
         <input type="password" class="form-control" id="password" name="password" required placeholder="Tu contraseña">
       </div>
-      <div class="form-check">
+      <div class="form-check pb-2">
         <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
         <label class="form-check-label" for="flexCheckDefault">
           Remember me
