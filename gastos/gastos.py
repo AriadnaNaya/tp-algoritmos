@@ -63,9 +63,8 @@ def create_gastos_post():#Ari
 def eliminar_gasto(gasto_id):#Rodri
     gasto = Gasto.query.get_or_404(gasto_id)
 
-    # Asegúrate de que el usuario actual sea el propietario del gasto
     if gasto.user != current_user:
-        abort(403)  # Forbidden
+        abort(403)
 
     db.session.delete(gasto)
     db.session.commit()
@@ -77,12 +76,10 @@ def eliminar_gasto(gasto_id):#Rodri
 def editar_gasto(gasto_id):#Flor
     gasto = Gasto.query.get_or_404(gasto_id)
 
-    # Asegúrate de que el usuario actual sea el propietario del gasto
     if gasto.user != current_user:
-        abort(403)  # Forbidden
+        abort(403) 
 
     if request.method == 'POST':
-        # Actualizar los campos del gasto con los nuevos valores
         gasto.descripcion = request.form['descripcion']
         gasto.tipo = request.form['tipo']
         gasto.monto = request.form['monto']
